@@ -110,6 +110,14 @@ pub async fn fetch_once(
     );
   }
 
+  if let Some(cve) = headers.get("X-Deno-Known-CVE") {
+    eprintln!(
+      "{} {}",
+      crate::colors::yellow("Warning"),
+      cve.to_str().unwrap()
+    );
+  }
+
   for key in headers.keys() {
     let key_str = key.to_string();
     let values = headers.get_all(key);
